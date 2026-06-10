@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PontsHumains - Inscription association</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page-association">
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="Retour à l'accueil">
+            <img src="../images/logo2.png" alt="Logo PontsHumains" class="logo">
+        </a>
+
+        <h1 class="site-title">PontsHumains</h1>
+
+        <div class="dropdown-compte">
+            <button class="bouton-compte" type="button" aria-haspopup="true">
+                Mon compte ▼
+            </button>
+            <ul class="dropdown-content">
+                <li><a href="./InscriptionAssociation.html">Connexion association</a></li>
+                <li><a href="#">Connexion bénévole</a></li>
+                <li><a href="#">Mes inscriptions</a></li>
+                <li><a href="#">Déconnexion</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <nav class="main-menu" aria-label="Menu principal">
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="./TrouverBenevoles.html">Trouver un bénévole</a></li>
+            <li><a href="./TrouverAssociation.html">Trouver une association</a></li>
+            <li><a href="#">Infos</a></li>
+        </ul>
+    </nav>
+
+    <main aria-label="Formulaire inscription association">
+        <form class="association-form">
+            <label>
+                Nom d'association
+                <input type="text" required>
+            </label>
+
+            <label>
+                Nom du responsable
+                <input type="text" required>
+            </label>
+
+            <label>
+                Pays d'origine
+                <input type="text" required>
+            </label>
+
+            <label>
+                Téléphone
+                <input type="tel" required>
+            </label>
+
+            <label>
+                Document association loi 1901
+                <input type="file" required>
+            </label>
+
+            <button type="submit">Valider</button>
+        </form>
+    </main>
+
+    <footer class="site-footer">
+        <p><strong>Contact :</strong> Téléphone : 07.68.74.88.55 – mail : pontshumains@gmail.com</p>
+        <p><strong>Adresse :</strong> 3 Clos des Pervenches – 64600 Anglet</p>
+    </footer>
+</body>
+</html>

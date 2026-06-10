@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ma sélection - PontsHumains</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="Retour à l'accueil">
+            <img src="../images/logo2.png" alt="Logo PontsHumains" class="logo">
+        </a>
+
+        <h1 class="site-title">Ma sélection</h1>
+
+        <div class="dropdown-compte">
+            <button class="bouton-compte" type="button" aria-haspopup="true">
+                Mon compte ▼
+            </button>
+            <ul class="dropdown-content">
+                <li><a href="./InscriptionAssociation.html">Connexion association</a></li>
+                <li><a href="#">Connexion bénévole</a></li>
+                <li><a href="#">Mes inscriptions</a></li>
+                <li><a href="#">Déconnexion</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <nav class="main-menu" aria-label="Menu principal">
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="./TrouverBenevoles.html">Trouver un bénévole</a></li>
+            <li><a href="./TrouverAssociation.html">Trouver une association</a></li>
+            <li><a href="#">Infos</a></li>
+        </ul>
+    </nav>
+
+    <main class="selection-page" aria-label="Page de sélection">
+        <header class="selection-top">
+            <h2 class="results-title">Personnes sélectionnées</h2>
+
+            <button type="button" class="btn-selection" id="inviteBtn" aria-label="Envoyer une invitation">
+                Envoyer une invitation
+            </button>
+        </header>
+
+        <p class="results-hint" id="emptyMsg">Aucune personne sélectionnée.</p>
+        <ul class="people-list" id="selectedList" aria-live="polite"></ul>
+
+        <p class="selection-actions">
+            <button type="button" id="clearAll" class="btn-selection">Tout retirer</button>
+        </p>
+
+        <p class="demo-note" id="demoNote" hidden>
+            Fonctionnalité de démonstration : l’envoi d’invitation n’est pas actif.
+        </p>
+    </main>
+
+    <footer class="site-footer">
+        <address class="contact">
+            <p><strong>Contact :</strong> Téléphone : 07.68.74.88.55 – mail : pontshumains@gmail.com</p>
+            <p><strong>Adresse :</strong> 3 Clos des Pervenches – 64600 Anglet</p>
+        </address>
+    </footer>
+
+    <script>
+        const STORAGE_KEY = "pontshumains_selection";
+        const listEl = document.getElementById("selectedList");
+        const emptyMsg = document.getElementById("emptyMsg");
+        const clearAllBtn = document.getElementById("clearAll");
+        const inviteBtn = document.getElementById("inviteBtn");
+        const demoNote = document.getElementById("demoNote");
+
+        function loadSelection() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? []; }
+            catch { return []; }
+        }
+
+        function saveSelection(list) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        }
+
+        function removeAt(index) {
+            const selection = loadSelection();
+            selection.splice(index, 1);
+            saveSelection(selection);
+            render();
+        }
+
+        function clearAll() {
+            saveSelection([]);
+            render();
+        }
+
+        function render() {
+            const selection = loadSelection();
+            listEl.innerHTML = "";
+
+            const hasItems = selection.length > 0;
+
+            emptyMsg.style.display = hasItems ? "none" : "block";
+            clearAllBtn.disabled = !hasItems;
+            inviteBtn.disabled = !hasItems;
+            demoNote.hidden = true;
+
+            selection.forEach((p, i) => {
+                const li = document.createElement("li");
+                li.className = "person-card";
+                li.innerHTML = `
+                    <strong>${p.name}</strong><br>
+                    Âge : ${p.age}<br>
+                    Compétence : ${p.skill}<br>
+                    Zone : ${p.zone.replace("-", " ")}<br>
+                    <button type="button">Retirer</button>
+                `;
+                li.querySelector("button").addEventListener("click", () => removeAt(i));
+                listEl.appendChild(li);
+            });
+        }
+
+        clearAllBtn.addEventListener("click", clearAll);
+
+        inviteBtn.addEventListener("click", () => {
+            demoNote.hidden = false;
+        });
+
+        render();
+    </script>
+</body>
+</html>
