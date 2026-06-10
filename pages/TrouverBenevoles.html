@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PontsHumains - Trouver un bénévole</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="Retour à l'accueil">
+            <img src="../images/logo2.png" alt="Logo PontsHumains" class="logo">
+        </a>
+
+        <h1 class="site-title">PontsHumains</h1>
+
+        <div class="dropdown-compte">
+            <button class="bouton-compte" type="button" aria-haspopup="true">
+                Mon compte ▼
+            </button>
+            <ul class="dropdown-content">
+                <li><a href="./InscriptionAssociation.html">Connexion association</a></li>
+                <li><a href="#">Connexion bénévole</a></li>
+                <li><a href="#">Mes inscriptions</a></li>
+                <li><a href="#">Déconnexion</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <nav class="main-menu" aria-label="Menu principal">
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="./TrouverBenevoles.html">Trouver un bénévole</a></li>
+            <li><a href="./TrouverAssociation.html">Trouver une association</a></li>
+            <li><a href="#">Infos</a></li>
+        </ul>
+    </nav>
+
+    <main class="layout" aria-label="Recherche de bénévoles">
+        <figure class="map" aria-label="Carte de France interactive">
+            <img src="../images/carte_france.png" alt="Carte de la France" class="map-image">
+
+            <button class="map-bubble bubble-1" type="button" aria-label="Zone Nord-Ouest" data-zone="nord-ouest"></button>
+            <button class="map-bubble bubble-2" type="button" aria-label="Zone Sud-Ouest" data-zone="sud-ouest"></button>
+            <button class="map-bubble bubble-3" type="button" aria-label="Zone Est" data-zone="est"></button>
+            <button class="map-bubble bubble-4" type="button" aria-label="Zone Sud-Est" data-zone="sud-est"></button>
+
+            <figcaption class="sr-only">Clique sur une bulle pour filtrer la liste des bénévoles.</figcaption>
+        </figure>
+
+        <aside class="side" aria-label="Filtres et résultats">
+            <details class="filters" open>
+                <summary>Filtres</summary>
+
+                <form class="filters-form" id="filtersForm" aria-label="Filtres de recherche">
+                    <label>
+                        Âge
+                        <select id="ageSelect">
+                            <option value="all">Tous</option>
+                            <option value="18-25">18–25</option>
+                            <option value="26-40">26–40</option>
+                            <option value="40+">40+</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Compétence
+                        <select id="skillSelect">
+                            <option value="all">Toutes</option>
+                            <option value="informatique">Informatique</option>
+                            <option value="social">Social</option>
+                            <option value="sport">Sport</option>
+                        </select>
+                    </label>
+                </form>
+            </details>
+
+            <p class="selection-bar">
+                <button type="button" id="openSelection" class="btn-selection">
+                    Voir ma sélection (<span id="selectionCount">0</span>)
+                </button>
+            </p>
+
+            <article class="results" aria-label="Résultats">
+                <h2 class="results-title">Résultats</h2>
+                <p class="results-hint" id="hint">Toutes les zones — 0 résultat(s)</p>
+                <ul class="people-list" id="peopleList" aria-live="polite"></ul>
+            </article>
+        </aside>
+    </main>
+
+    <footer class="site-footer">
+        <address class="contact">
+            <p><strong>Contact :</strong> Téléphone : 07.68.74.88.55 – mail : pontshumains@gmail.com</p>
+            <p><strong>Adresse :</strong> 3 Clos des Pervenches – 64600 Anglet</p>
+        </address>
+    </footer>
+
+    <script>
+        const PEOPLE = [
+            { name: "Léa", age: 22, skill: "informatique", zone: "nord-ouest" },
+            { name: "Mathis", age: 28, skill: "social", zone: "nord-ouest" },
+            { name: "Inès", age: 41, skill: "sport", zone: "est" },
+            { name: "Yanis", age: 19, skill: "social", zone: "sud-ouest" },
+            { name: "Chloé", age: 35, skill: "informatique", zone: "sud-est" },
+            { name: "Lucas", age: 47, skill: "social", zone: "sud-est" }
+        ];
+
+        const STORAGE_KEY = "pontshumains_selection";
+
+        const bubbles = document.querySelectorAll(".map-bubble");
+        const peopleList = document.getElementById("peopleList");
+        const hint = document.getElementById("hint");
+        const ageSelect = document.getElementById("ageSelect");
+        const skillSelect = document.getElementById("skillSelect");
+
+        let selectedZone = null;
+
+        function loadSelection() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? []; }
+            catch { return []; }
+        }
+
+        function saveSelection(list) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        }
+
+        function samePerson(a, b) {
+            return a.name === b.name && a.zone === b.zone && a.age === b.age && a.skill === b.skill;
+        }
+
+        function isSelected(selection, person) {
+            return selection.some(p => samePerson(p, person));
+        }
+
+        function updateSelectionCount() {
+            document.getElementById("selectionCount").textContent = loadSelection().length;
+        }
+
+        function toggleSelection(person) {
+            const selection = loadSelection();
+            const exists = isSelected(selection, person);
+
+            const next = exists
+                ? selection.filter(p => !samePerson(p, person))
+                : [...selection, person];
+
+            saveSelection(next);
+            updateSelectionCount();
+            render();
+        }
+
+        function ageMatches(age, filter) {
+            if (filter === "all") return true;
+            if (filter === "18-25") return age >= 18 && age <= 25;
+            if (filter === "26-40") return age >= 26 && age <= 40;
+            if (filter === "40+") return age >= 41;
+            return true;
+        }
+
+        function triggerClickAnim(btn) {
+            btn.classList.remove("is-clicked");
+            void btn.offsetWidth;
+            btn.classList.add("is-clicked");
+        }
+
+        function render() {
+            const ageFilter = ageSelect.value;
+            const skillFilter = skillSelect.value;
+
+            let filtered = PEOPLE.slice();
+
+            if (selectedZone) filtered = filtered.filter(p => p.zone === selectedZone);
+
+            filtered = filtered.filter(p => ageMatches(p.age, ageFilter));
+            if (skillFilter !== "all") filtered = filtered.filter(p => p.skill === skillFilter);
+
+            peopleList.innerHTML = "";
+            hint.textContent = selectedZone
+                ? `Zone : ${selectedZone.replace("-", " ")} — ${filtered.length} résultat(s)`
+                : `Toutes les zones — ${filtered.length} résultat(s)`;
+
+            if (filtered.length === 0) {
+                const li = document.createElement("li");
+                li.className = "person-card";
+                li.textContent = "Aucun résultat avec ces filtres.";
+                peopleList.appendChild(li);
+                return;
+            }
+
+            const selection = loadSelection();
+
+            for (const p of filtered) {
+                const li = document.createElement("li");
+                li.className = "person-card";
+
+                const selected = isSelected(selection, p);
+
+                li.innerHTML = `
+                    <strong>${p.name}</strong><br>
+                    Âge : ${p.age}<br>
+                    Compétence : ${p.skill}<br>
+                    Zone : ${p.zone.replace("-", " ")}<br>
+                    <button type="button">${selected ? "Retirer de la sélection" : "Ajouter à la sélection"}</button>
+                `;
+
+                li.querySelector("button").addEventListener("click", () => toggleSelection(p));
+                peopleList.appendChild(li);
+            }
+        }
+
+        bubbles.forEach(b => {
+            b.addEventListener("click", () => {
+                const zone = b.dataset.zone;
+
+                if (selectedZone === zone) {
+                    selectedZone = null;
+                    bubbles.forEach(x => x.classList.remove("is-active"));
+                } else {
+                    selectedZone = zone;
+                    bubbles.forEach(x => x.classList.remove("is-active"));
+                    b.classList.add("is-active");
+                    triggerClickAnim(b);
+                }
+
+                render();
+            });
+        });
+
+        ageSelect.addEventListener("change", render);
+        skillSelect.addEventListener("change", render);
+
+        document.getElementById("openSelection").addEventListener("click", () => {
+            window.open("./selection.html", "_blank");
+        });
+
+        updateSelectionCount();
+        render();
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PontsHumains - Trouver une association</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="Retour à l'accueil">
+            <img src="../images/logo2.png" alt="Logo PontsHumains" class="logo">
+        </a>
+
+        <h1 class="site-title">PontsHumains</h1>
+
+        <div class="dropdown-compte">
+            <button class="bouton-compte" type="button" aria-haspopup="true" aria-expanded="false">
+                Mon compte ▼
+            </button>
+            <ul class="dropdown-content">
+                <li><a href="./InscriptionAssociation.html">Connexion association</a></li>
+                <li><a href="#">Connexion bénévole</a></li>
+                <li><a href="#">Mes inscriptions</a></li>
+                <li><a href="#">Déconnexion</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <nav class="main-menu" aria-label="Menu principal">
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="./TrouverBenevoles.html">Trouver un bénévole</a></li>
+            <li><a href="./TrouverAssociation.html">Trouver une association</a></li>
+            <li><a href="#">Infos</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="search-section" aria-label="Recherche d'associations">
+            <form class="search-bar">
+                <input type="search" placeholder="Rechercher une association (ex: SPA...)" aria-label="Rechercher une association">
+                <select class="filter-select" aria-label="Filtrer par catégorie">
+                    <option value="">Toutes les catégories</option>
+                    <option value="sport">Sport</option>
+                    <option value="sante">Santé</option>
+                    <option value="social">Social</option>
+                </select>
+                <button type="submit" class="btn-search">Rechercher</button>
+            </form>
+        </section>
+
+        <section class="associations-grid" aria-label="Liste des associations">
+            <h2 class="sr-only">Liste des associations</h2>
+
+            <article class="asso-card" data-categorie="social">
+                <figure>
+                    <img src="../images/logo-spa-avatar.jpg" alt="Logo SPA" class="asso-logo">
+                </figure>
+                <div class="asso-info">
+                    <h3>SPA Anglet</h3>
+                    <p class="asso-tag">Protection Animale</p>
+                    <p>Aidez-nous à prendre soin de nos pensionnaires à quatre pattes.</p>
+                    <a href="profil-spa.html" class="btn-profil">Voir le profil</a>
+                </div>
+            </article>
+
+            <article class="asso-card" data-categorie="sante">
+                <figure>
+                    <img src="../images/logo_Croix-Rouge_400x200.webp" alt="Logo Croix Rouge" class="asso-logo">
+                </figure>
+                <div class="asso-info">
+                    <h3>Croix Rouge</h3>
+                    <p class="asso-tag">Santé & Social</p>
+                    <p>Interventions d'urgence et aide aux plus démunis.</p>
+                    <a href="profil-croix-rouge.html" class="btn-profil">Voir le profil</a>
+                </div>
+            </article>
+
+            <article class="asso-card" data-categorie="sport">
+                <figure>
+                    <img src="../images/AS.png" alt="Logo Association Sportive" class="asso-logo">
+                </figure>
+                <div class="asso-info">
+                    <h3>Union Sportive et Culturelle</h3>
+                    <p class="asso-tag">Sport et Santé</p>
+                    <p>Association sportive de proximité.</p>
+                    <a href="profil-union-sportive.html" class="btn-profil">Voir le profil</a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p><strong>Contact :</strong> Téléphone : 07.68.74.88.55 – mail : pontshumains@gmail.com</p>
+        <p><strong>Adresse :</strong> 3 Clos des Pervenches – 64600 Anglet</p>
+    </footer>
+</body>
+
+</html>

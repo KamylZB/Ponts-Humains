@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PontsHumains - Profil Croix-Rouge</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="Retour à l'accueil">
+            <img src="../images/logo2.png" alt="PontsHumains" class="logo">
+        </a>
+
+        <h1 class="site-title">PontsHumains</h1>
+
+        <div class="dropdown-compte">
+            <button class="bouton-compte" type="button" aria-haspopup="true" aria-expanded="false">
+                Mon compte ▼
+            </button>
+            <div class="dropdown-content" role="menu">
+                <a href="./InscriptionAssociation.html" role="menuitem">Connexion association</a>
+                <a href="#" role="menuitem">Connexion bénévole</a>
+                <a href="#" role="menuitem">Mes inscriptions</a>
+                <a href="#" role="menuitem">Déconnexion</a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-menu" aria-label="Menu principal">
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../pages/TrouverBenevoles.html">Trouver un bénévole</a></li>
+            <li><a href="../pages/TrouverAssociation.html">Trouver une association</a></li>
+            <li><a href="#">Infos</a></li>
+        </ul>
+    </nav>
+
+    <main class="profil-container">
+        <header class="profil-hero">
+            <img src="../images/logo_Croix-Rouge_400x200.webp" alt="Logo de la Croix-Rouge" class="profil-avatar">
+            <section>
+                <h2>Croix-Rouge Française</h2>
+                <p class="asso-tag">Santé &amp; Social</p>
+            </section>
+        </header>
+
+        <section class="profil-content">
+            <h2 class="sr-only">Contenu du profil de l'association</h2>
+
+            <article class="profil-desc">
+                <h3>Nos actions</h3>
+                <p>
+                    Acteur majeur de l'humanitaire, nous intervenons dans le secourisme, l'urgence,
+                    mais aussi l'aide sociale et la formation pour protéger les vies.
+                </p>
+
+                <article class="event-highlight">
+                    <h4>Prochain événement</h4>
+                    <p>📅 <strong>Mercredi 28 janvier 2026</strong></p>
+                    <p>Maraude nocturne à Anglet : distribution de repas et couvertures.</p>
+
+                    <a href="inscription-evenement.html" class="btn-profil">
+                        S'inscrire à cette mission
+                    </a>
+                </article>
+            </article>
+
+            <aside class="profil-sidebar">
+                <h3>Contact</h3>
+                <address>
+                    <p>✉️ anglet@croix-rouge.fr</p>
+                    <p>📞 05.59.12.34.56</p>
+                    <p>📍 Antenne locale, Anglet</p>
+                </address>
+            </aside>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p><strong>Contact :</strong> Téléphone : 07.68.74.88.55 – mail : pontshumains@gmail.com</p>
+        <p><strong>Adresse :</strong> 3 Clos des Pervenches – 64600 Anglet</p>
+    </footer>
+</body>
+
+</html>

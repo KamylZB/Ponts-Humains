@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PontsHumains - Inscription événement</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="Retour à l'accueil">
+            <img src="../images/logo2.png" alt="Logo PontsHumains" class="logo">
+        </a>
+
+        <h1 class="site-title">PontsHumains</h1>
+
+        <div class="dropdown-compte">
+            <button class="bouton-compte" type="button" aria-haspopup="true">
+                Mon compte ▼
+            </button>
+            <ul class="dropdown-content">
+                <li><a href="./InscriptionAssociation.html">Connexion association</a></li>
+                <li><a href="#">Connexion bénévole</a></li>
+                <li><a href="#">Mes inscriptions</a></li>
+                <li><a href="#">Déconnexion</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <nav class="main-menu" aria-label="Menu principal">
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="./TrouverBenevoles.html">Trouver un bénévole</a></li>
+            <li><a href="./TrouverAssociation.html">Trouver une association</a></li>
+            <li><a href="#">Infos</a></li>
+        </ul>
+    </nav>
+
+    <main class="form-container">
+        <article class="form-card">
+            <header>
+                <h2>Inscription à la mission</h2>
+                <p>Veuillez remplir vos coordonnées pour que l'association puisse vous recontacter.</p>
+            </header>
+
+            <form class="event-form">
+                <label>
+                    Nom complet
+                    <input type="text" placeholder="Votre nom et prénom">
+                </label>
+
+                <label>
+                    Adresse e-mail
+                    <input type="email" placeholder="exemple@mail.com">
+                </label>
+
+                <fieldset class="adresse-row">
+                    <legend>Adresse de résidence</legend>
+
+                    <label>
+                        Rue
+                        <input type="text" placeholder="Rue">
+                    </label>
+
+                    <label>
+                        Ville
+                        <input type="text" placeholder="Ville">
+                    </label>
+                </fieldset>
+
+                <label>
+                    Téléphone
+                    <input type="tel" placeholder="06 00 00 00 00">
+                </label>
+
+                <label>
+                    Pourquoi voulez-vous participer ?
+                    <textarea placeholder="Quelques mots..."></textarea>
+                </label>
+
+                <button type="submit" class="btn-search">Valider</button>
+            </form>
+
+            <footer class="form-footer">
+                <a href="TrouverAssociation.html" class="btn-search">Retourner</a>
+            </footer>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <p><strong>Contact :</strong> 07.68.74.88.55 – pontshumains@gmail.com</p>
+        <p><strong>Adresse :</strong> 3 Clos des Pervenches – 64600 Anglet</p>
+    </footer>
+</body>
+</html>
